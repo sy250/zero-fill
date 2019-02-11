@@ -67,6 +67,11 @@ jQuery.noConflict();
                         $('.checkbox').eq(cnt).attr('id', 'check_' + cnt);
                         $('.checkbox').eq(cnt).attr('value', escapeHtml(prop.code));
 
+                        // 既存の設定値を反映
+                        if ($.inArray(prop.code, confValue[0]) !== -1) {
+                            $('.checkbox_' + i).eq(cnt).attr('checked', 'checked');
+                        }
+
                         // 設定画面のテーブルの列ループ
                         // for (var i = 0; i < 3; i++) {
                         //     switch (i) {
