@@ -36,6 +36,7 @@ jQuery.noConflict();
         var url = kintone.api.url('/k/v1/preview/app/form/fields', true);
         // アプリのフォームフィールド情報を取得
         kintone.api(url, 'GET', param, function(resp) {
+            console.log(resp);
             var cnt = 0;
             // tr１行目の要素のクローンを変数にセット
             var $cloneElem = $('.zero-fill-plugin_div').clone();
