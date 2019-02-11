@@ -44,6 +44,7 @@ jQuery.noConflict();
             console.log($cloneElem);
             // フィールド要素ごとループ
             for (var key in resp.properties) {
+                console.log(key);
                 // keyが存在しない場合は次へ
                 if (!resp.properties.hasOwnProperty(key)) { continue; }
                 // フィールド要素１つ取り出し
