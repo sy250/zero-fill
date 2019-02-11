@@ -1,0 +1,26 @@
+{
+    "manifest_version": 1,
+    "version": 1,
+    "type": "APP",
+    "name": { 
+        "ja": "ゼロ埋めプラグイン",
+        "en": "zero-fill plugin"
+    },
+    "description": { 
+        "ja": "これはゼロ埋めプラグインです。",
+        "en": "This is zero-fill plugin."
+    },
+    "icon": "image/icon.png",
+    "desktop": {
+        "js": [
+            "js/customize.js"
+        ]
+    },
+    "config": {
+        "html": "html/config.html",
+        "js": [
+            "https://js.cybozu.com/jquery/3.3.1/jquery.min.js",
+            "html/config.js"
+        ]
+    }
+}
