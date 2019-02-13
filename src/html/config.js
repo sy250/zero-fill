@@ -30,6 +30,7 @@ jQuery.noConflict();
             let cloneElemCnt = 0;
             // １つ目のdiv要素のクローンを変数にセット
             let $cloneElem = $('.zero-fill-plugin_div').clone();
+            $('.zero-fill-plugin_div').remove();
             console.log($cloneElem);
             // フィールド要素ごとループ
             for (let key in resp.properties) {
@@ -41,6 +42,9 @@ jQuery.noConflict();
                 // フィールドタイプごとに処理を分ける
                 switch (prop.type) {
                     case 'SUBTABLE':
+                        console.log(prop.code);
+                        console.log(prop.fields);
+
                     case 'STATUS':
                     case 'STATUS_ASSIGNEE':
                     case 'RECORD_NUMBER':
