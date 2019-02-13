@@ -43,6 +43,13 @@
             let record = kintone.app.record.get();
             console.log(record);
             config.ZeroFillItem.forEach(function(value){
+
+                // console.log(record.record.Table.type);
+                // console.log(record.record.Table);
+                // switch (record.record[value].type) {
+
+                // }
+
                 console.log(record);
                 console.log(value);
                 console.log(record.record[value]);
