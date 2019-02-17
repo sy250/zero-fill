@@ -15,7 +15,7 @@ jQuery.noConflict();
         // 設定を取得する
         // confValue = ["code", "code", ... ]
         // type: SUBTABLE
-        //   confValue = ["subtable": ["code", "code", ... ]]
+        //   confValue = ["subtable-code": ["code", "code", ... ]]
         let conf = kintone.plugin.app.getConfig(pluginId);
         let confValue = [];
         if (Object.keys(conf).length !== 0) {
@@ -66,8 +66,10 @@ jQuery.noConflict();
                             }
                             $('.label').eq(cloneElemCnt).text(escapeHtml(field.code));
                             $('.checkbox').eq(cloneElemCnt).attr('name', escapeHtml(field.code));
+                            // $('.checkbox').eq(cloneElemCnt).attr('class', escapeHtml("subtable_" + prop.code));
                             $('.checkbox').eq(cloneElemCnt).attr('id', 'check_' + cloneElemCnt);
                             $('.checkbox').eq(cloneElemCnt).attr('value', escapeHtml(field.code));
+                            $('.checkbox').eq(cloneElemCnt).toggleClass(escapeHtml("subtable_" + prop.code));
                             // 既存の設定値を反映
                             if ($.inArray(field.code, confValue[0]) !== -1) {
                                 $('.checkbox').eq(cloneElemCnt).attr('checked', 'checked');
@@ -106,6 +108,7 @@ jQuery.noConflict();
         });
 
         function createConfig() {
+            console.log($("[class^='subtable']").map(function(){return $(this).val()}).get());
             // 項目にチェックがついているフィールドを取得
             let arrayZeroFillItem = $('.checkbox:checked').map(function() {
                 return $(this).val();
