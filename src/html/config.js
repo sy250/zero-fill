@@ -23,7 +23,7 @@ jQuery.noConflict();
                 JSON.parse(conf.ZeroFillItem),
             ];
         }
-        console.log(confValue);
+        console.log("ZeroFillItem: " + confValue);
 
         let param = {'app': kintone.app.getId()};
         let url = kintone.api.url('/k/v1/preview/app/form/fields', true);
@@ -113,6 +113,53 @@ jQuery.noConflict();
             let arrayZeroFillItem = $('.checkbox:checked').map(function() {
                 return $(this).val();
             }).get();
+            let config = {
+                'ZeroFillItem': JSON.stringify(arrayZeroFillItem),
+            };
+            return config;
+        }
+
+        function createConfig_subtable() {
+            let arrayZeroFillItem = [];
+            // チェックした要素をループ
+            $('.checkbox:checked').each(function(){
+                // checked value
+                console.log("checked: " + $(this).val());
+                // subtableの時
+                if($(this).attr("class").match(/subtable_/)) {
+                    let matchStr = $(this).attr("class").match(/(subtable)(_)(.*)/g)[0].split(/_/g);
+                    // subtable code
+                    console.log("subtable code: " + matchStr[1]);
+                    let subtableCode = matchStr[1];
+                    // keyが存在した時
+                    console.log(arrayZeroFillItem);
+                    let findIndex = arrayZeroFillItem.findIndex(function(elm){
+                    console.log("element: " + elm);
+                        if(elm[subtableCode]){
+                            console.log(elm[subtableCode]);
+                            return elm;
+                        } else {
+                            console.log("not element");
+                        }
+                    });
+                    console.log("find index: " + findIndex);
+                    // if(keys.length){
+                    if(findIndex !== -1){
+                        arrayZeroFillItem[findIndex][subtableCode].push($(this).val());
+                    } else {
+                        // keyが存在しない時
+                        let key = matchStr[1];
+                        let obj = new Object();
+                        console.log("new key: " + $(this).val());
+                        obj[key] = new Array($(this).val());
+                        arrayZeroFillItem.push(obj);
+                    }
+                } else { // subtableでは無い時
+                    console.log($(this).val());
+                    console.log("not subtable");
+                    arrayZeroFillItem.push($(this).val());
+                }
+            });
             let config = {
                 'ZeroFillItem': JSON.stringify(arrayZeroFillItem),
             };
