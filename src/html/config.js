@@ -83,7 +83,9 @@ jQuery.noConflict();
                             // }
 
                             let findFieldCode = confValue[0].find(function(value){
-                                return value[prop.code].find() === field.code;
+                                // return value[prop.code].find() === field.code;
+                                // return $.inArray(value[prop.code], field.code) !== -1;
+                                return $.inArray(value[prop.code], field.code) !== -1;
                             });
                             console.log("find field.code: " + findFieldCode);
                             if ($.inArray(field.code, findFieldCode) !== -1) {
