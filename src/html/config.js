@@ -24,6 +24,7 @@ jQuery.noConflict();
             ];
         }
         console.log("ZeroFillItem: " + confValue);
+        console.log(confValue[0]);
 
         let param = {'app': kintone.app.getId()};
         let url = kintone.api.url('/k/v1/preview/app/form/fields', true);
@@ -71,7 +72,21 @@ jQuery.noConflict();
                             $('.checkbox').eq(cloneElemCnt).attr('value', escapeHtml(field.code));
                             $('.checkbox').eq(cloneElemCnt).toggleClass(escapeHtml("subtable_" + prop.code));
                             // 既存の設定値を反映
-                            if ($.inArray(field.code, confValue[0]) !== -1) {
+                            // inArray から　filter に変更。
+
+                            // let findFieldCode = confValue[0].find(function(value){
+                            //     return value === field.code;
+                            // });
+                            // console.log("find field.code: " + findFieldCode);
+                            // if ($.inArray(field.code, confValue[0]) !== -1) {
+                            //     $('.checkbox').eq(cloneElemCnt).attr('checked', 'checked');
+                            // }
+
+                            let findFieldCode = confValue[0].find(function(value){
+                                return value[prop.code].find() === field.code;
+                            });
+                            console.log("find field.code: " + findFieldCode);
+                            if ($.inArray(field.code, findFieldCode) !== -1) {
                                 $('.checkbox').eq(cloneElemCnt).attr('checked', 'checked');
                             }
                             cloneElemCnt++;
@@ -168,7 +183,8 @@ jQuery.noConflict();
 
         // 保存
         $('#button_submit').on('click', function() {
-            let config = createConfig();
+            // let config = createConfig();
+            let config = createConfig_subtable();
             console.log(config);
             // 設定を保存する
             kintone.plugin.app.setConfig(config);
