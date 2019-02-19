@@ -85,12 +85,18 @@ jQuery.noConflict();
                             let findFieldCode = confValue[0].find(function(value){
                                 // return value[prop.code].find() === field.code;
                                 // return $.inArray(value[prop.code], field.code) !== -1;
-                                return $.inArray(value[prop.code], field.code) !== -1;
+                                console.log(value[prop.code]);
+                                if ( $.inArray(field.code, value[prop.code]) !== -1 ) {
+                                    // return true;
+                                    $('.checkbox').eq(cloneElemCnt).attr('checked', 'checked');
+                                    return value;
+                                }
+                                // return $.inArray(value[prop.code], field.code) !== -1;
                             });
                             console.log("find field.code: " + findFieldCode);
-                            if ($.inArray(field.code, findFieldCode) !== -1) {
-                                $('.checkbox').eq(cloneElemCnt).attr('checked', 'checked');
-                            }
+                            // if ($.inArray(field.code, findFieldCode) !== -1) {
+                            //         $('.checkbox').eq(cloneElemCnt).attr('checked', 'checked');
+                            // }
                             cloneElemCnt++;
                             break;
                         }
