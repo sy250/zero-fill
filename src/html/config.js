@@ -108,19 +108,6 @@ jQuery.noConflict();
             }
         });
 
-        // function createConfig() {
-        //     console.log($("[class^='subtable']").map(function(){return $(this).val()}).get());
-        //     // 項目にチェックがついているフィールドを取得
-        //     let arrayZeroFillItem = $('.checkbox:checked').map(function() {
-        //         return $(this).val();
-        //     }).get();
-        //     let config = {
-        //         'ZeroFillItem': JSON.stringify(arrayZeroFillItem),
-        //     };
-        //     return config;
-        // }
-
-        // function createConfig_subtable() {
         function createConfig() {
             let arrayZeroFillItem = [];
             // チェックした要素をループ
@@ -145,7 +132,6 @@ jQuery.noConflict();
                         }
                     });
                     console.log("find index: " + findIndex);
-                    // if(keys.length){
                     if(findIndex !== -1){
                         arrayZeroFillItem[findIndex][subtableCode].push($(this).val());
                     } else {
@@ -171,7 +157,6 @@ jQuery.noConflict();
         // 保存
         $('#button_submit').on('click', function() {
             let config = createConfig();
-            // let config = createConfig_subtable();
             console.log(config);
             // 設定を保存する
             kintone.plugin.app.setConfig(config);
