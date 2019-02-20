@@ -35,7 +35,6 @@ jQuery.noConflict();
             let cloneElemCnt = 0;
             // １つ目のdiv要素のクローンを変数にセット
             let $cloneElem = $('.zero-fill-plugin_div').clone();
-            // $('.zero-fill-plugin_div').remove();
             console.log($cloneElem);
             // フィールド要素ごとループ
             for (let key in resp.properties) {
@@ -52,51 +51,30 @@ jQuery.noConflict();
                     console.log(prop.fields);
                     for (let key in prop.fields) {
                         console.log(key);
-                        // keyが存在しない場合は次へ
-                        // if (!prop.fields.hasOwnProperty(key)) { continue; }
                         // フィールド要素１つ取り出し
                         let field = prop.fields[key];
                         console.log(field);
                         switch (field.type) {
                             case 'NUMBER':
                             console.log(field.code);
-                            // console.log(prop.fields);
                             if (cloneElemCnt !== 0) {
                                 // ２つ目以降は、要素をクローンして親要素に追加する
                                 $cloneElem.clone().appendTo('#form');
                             }
                             $('.label').eq(cloneElemCnt).text(escapeHtml(field.code));
                             $('.checkbox').eq(cloneElemCnt).attr('name', escapeHtml(field.code));
-                            // $('.checkbox').eq(cloneElemCnt).attr('class', escapeHtml("subtable_" + prop.code));
                             $('.checkbox').eq(cloneElemCnt).attr('id', 'check_' + cloneElemCnt);
                             $('.checkbox').eq(cloneElemCnt).attr('value', escapeHtml(field.code));
                             $('.checkbox').eq(cloneElemCnt).toggleClass(escapeHtml("subtable_" + prop.code));
                             // 既存の設定値を反映
-                            // inArray から　filter に変更。
-
-                            // let findFieldCode = confValue[0].find(function(value){
-                            //     return value === field.code;
-                            // });
-                            // console.log("find field.code: " + findFieldCode);
-                            // if ($.inArray(field.code, confValue[0]) !== -1) {
-                            //     $('.checkbox').eq(cloneElemCnt).attr('checked', 'checked');
-                            // }
-
                             let findFieldCode = confValue[0].find(function(value){
-                                // return value[prop.code].find() === field.code;
-                                // return $.inArray(value[prop.code], field.code) !== -1;
                                 console.log(value[prop.code]);
                                 if ( $.inArray(field.code, value[prop.code]) !== -1 ) {
-                                    // return true;
                                     $('.checkbox').eq(cloneElemCnt).attr('checked', 'checked');
                                     return value;
                                 }
-                                // return $.inArray(value[prop.code], field.code) !== -1;
                             });
                             console.log("find field.code: " + findFieldCode);
-                            // if ($.inArray(field.code, findFieldCode) !== -1) {
-                            //         $('.checkbox').eq(cloneElemCnt).attr('checked', 'checked');
-                            // }
                             cloneElemCnt++;
                             break;
                         }
@@ -130,19 +108,20 @@ jQuery.noConflict();
             }
         });
 
-        function createConfig() {
-            console.log($("[class^='subtable']").map(function(){return $(this).val()}).get());
-            // 項目にチェックがついているフィールドを取得
-            let arrayZeroFillItem = $('.checkbox:checked').map(function() {
-                return $(this).val();
-            }).get();
-            let config = {
-                'ZeroFillItem': JSON.stringify(arrayZeroFillItem),
-            };
-            return config;
-        }
+        // function createConfig() {
+        //     console.log($("[class^='subtable']").map(function(){return $(this).val()}).get());
+        //     // 項目にチェックがついているフィールドを取得
+        //     let arrayZeroFillItem = $('.checkbox:checked').map(function() {
+        //         return $(this).val();
+        //     }).get();
+        //     let config = {
+        //         'ZeroFillItem': JSON.stringify(arrayZeroFillItem),
+        //     };
+        //     return config;
+        // }
 
-        function createConfig_subtable() {
+        // function createConfig_subtable() {
+        function createConfig() {
             let arrayZeroFillItem = [];
             // チェックした要素をループ
             $('.checkbox:checked').each(function(){
@@ -191,8 +170,8 @@ jQuery.noConflict();
 
         // 保存
         $('#button_submit').on('click', function() {
-            // let config = createConfig();
-            let config = createConfig_subtable();
+            let config = createConfig();
+            // let config = createConfig_subtable();
             console.log(config);
             // 設定を保存する
             kintone.plugin.app.setConfig(config);
